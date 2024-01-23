@@ -126,7 +126,7 @@ function addQuestion($uid, $tid, $question, $explanation) {
     $qHash = md5($question.$askedDate);
 
     //create query
-    $query_text = "INSERT INTO Question (uid, tid, question, explanation, date) VALUES ('$uid', '$tid', '$question', '$explanation', '$askedDate', '$qHash')";
+    $query_text = "INSERT INTO Question (uid, tid, question, explanation, askedDate, qHash) VALUES ('$uid', '$tid', '$question', '$explanation', '$askedDate', '$qHash')";
 
     $query = mysqli_query($sqlConnect, $query_text);
 
@@ -136,4 +136,25 @@ function addQuestion($uid, $tid, $question, $explanation) {
     } else {
         // echo "Error: " . $query_text . "<br>" . mysqli_error($sqlConnect);
     }
+}
+
+
+//Get 10 Questions
+function getQuestions($limit) {
+    global $sqlConnect;
+    $limit = cleanUp($limit);
+    $fetched_data = array();
+
+    //create query
+    $query_text = "SELECT * FROM Question LIMIT $limit";
+
+    $query = mysqli_query($sqlConnect, $query_text);
+
+    //handle if there is an error
+    if($query){
+        while($row = mysqli_fetch_assoc($query)){
+            $fetched_data[] = $row;
+        }
+    }
+    return $fetched_data;
 }
