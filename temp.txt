@@ -1,0 +1,27 @@
+DB Users
+    uid int
+    fName varchar
+    lName varchar
+    Email varchar
+    Password varchar
+    joinedDate date 
+    uHash varchar
+
+DB Topics
+    tid int
+    topicNmae varchar
+
+DB Question
+    tid (FK)
+    uid (Fk)
+    question
+    explanation
+    askedDate
+
+DB Answer
+    aid (PK)
+    uid (FK)
+    qid (FK)
+    ansDate
+    answer
+
